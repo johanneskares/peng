@@ -14,7 +14,7 @@ export default function Home() {
           Start Peng Game
         </CardTitle>
         <CardDescription className="text-center mt-2">
-          Enter the participants' details to start your Peng game adventure!
+          Enter the participants&apos; details to start your Peng game adventure!
         </CardDescription>
       </CardHeader>
       <Peng />
