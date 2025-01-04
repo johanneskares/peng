@@ -4,6 +4,7 @@ import PhoneInput from "@/components/phone-input";
 import { Button } from "@/components/ui/button";
 import { CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
 
@@ -17,6 +18,7 @@ export default function Peng() {
   const [participants, setParticipants] = useState<Participant[]>([
     { id: 1, name: "", phoneNumber: "" },
   ]);
+  const [voucherCode, setVoucherCode] = useState("")
 
   const addParticipant = () => {
     const newId = participants.length + 1;
@@ -90,9 +92,19 @@ export default function Peng() {
         >
           <Plus className="mr-2 h-4 w-4" /> Add Participant
         </Button>
+              <div className="space-y-2">
+          <Label htmlFor="voucher-code">Voucher Code</Label>
+          <Input
+            id="voucher-code"
+            value={voucherCode}
+            onChange={(e) => setVoucherCode(e.target.value)}
+            placeholder="Enter voucher code"
+            className="w-full"
+          />
+        </div>
       </CardContent>
       <CardFooter>
-        <Button onClick={handleStartGame} className="w-full">
+        <Button onClick={handleStartGame} className="w-full" disabled={!voucherCode}>
           Start Game
         </Button>
       </CardFooter>
