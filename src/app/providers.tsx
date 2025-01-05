@@ -18,6 +18,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       new QueryClient({
         mutationCache: new MutationCache({
           onError: (error: unknown) => {
+            console.error(error);
             if (error instanceof Error) {
               toast.error("Error", { description: error.message });
             } else {

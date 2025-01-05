@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card";
-import { Players } from "./players";
+import { Game } from "./game";
 
-export default async function PlayerListCard({
+export default async function Home({
   params,
 }: {
   params: Promise<{ gameId: string }>;
@@ -10,7 +10,7 @@ export default async function PlayerListCard({
 
   return (
     <Card className="w-full max-w-md mx-auto">
-      <Players gameId={gameId} />
+      <Game gameId={gameId} />
     </Card>
   );
 }

@@ -25,6 +25,7 @@ import Link from "next/link";
 
 export function Game({ gameId }: { gameId: string }) {
   const game = trpc.getGame.useQuery({ id: gameId });
+  const startGameMutation = trpc.startGame.useMutation();
 
   if (game.isPending) {
     return (
@@ -77,12 +78,26 @@ export function Game({ gameId }: { gameId: string }) {
         </p>
       </CardContent>
       <CardFooter className="flex flex-col gap-4">
-        <Button variant="outline" asChild className="w-full">
-          <Link href={`/players/${game.data?.id}`}>Manage Participants</Link>
+        <Button
+          variant="outline"
+          asChild
+          className="w-full"
+          disabled={
+            startGameMutation.isPending || game.data?.state === "started"
+          }
+        >
+          <Link href={`/game/${game.data?.id}`}>Manage Participants</Link>
         </Button>
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button className="w-full">Start Game</Button>
+            <Button
+              className="w-full"
+              disabled={
+                startGameMutation.isPending || game.data?.state === "started"
+              }
+            >
+              Start Game
+            </Button>
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
@@ -96,7 +111,11 @@ export function Game({ gameId }: { gameId: string }) {
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction>Start Game</AlertDialogAction>
+              <AlertDialogAction
+                onClick={() => startGameMutation.mutate({ id: gameId })}
+              >
+                Start Game
+              </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>

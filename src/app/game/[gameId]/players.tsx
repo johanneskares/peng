@@ -10,9 +10,15 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { trpc } from "@/utils/trpc";
-import { Trash2 } from "lucide-react";
+import { Heart, Skull, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -88,46 +94,52 @@ export function Players({ gameId }: { gameId: string }) {
       <CardHeader>
         <div className="flex justify-between items-center">
           <CardTitle>{game.data?.name}</CardTitle>
-          <Button variant="secondary" size="sm" asChild>
-            <Link href={`/game/${gameId}`}>Manage Game</Link>
-          </Button>
+          {game.data?.state !== "started" && (
+            <Button variant="secondary" size="sm" asChild>
+              <Link href={`/manage-game/${gameId}`}>Manage Game</Link>
+            </Button>
+          )}
         </div>
         <CardDescription>
-          Add yourself to the game or remove individual players.
+          {game.data?.state === "started"
+            ? "Check your email to find out who your target is!"
+            : "Add yourself to the game or remove individual players."}
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={addPlayer} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="name">Name</Label>
-            <Input
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Enter your name"
-              required
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
-              required
-            />
-          </div>
-          <Button
-            type="submit"
-            className="w-full"
-            disabled={addPlayerMutation.isPending}
-          >
-            Add Player
-          </Button>
-        </form>
-        <div className="mt-6">
+        {game.data?.state !== "started" && (
+          <form onSubmit={addPlayer} className="space-y-4 mb-6">
+            <div className="space-y-2">
+              <Label htmlFor="name">Name</Label>
+              <Input
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Enter your name"
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={addPlayerMutation.isPending}
+            >
+              Add Player
+            </Button>
+          </form>
+        )}
+        <div className="">
           <h3 className="font-semibold mb-2">Current Players:</h3>
           {game.data?.participants.length !== 0 ||
           addPlayerMutation.isPending ? (
@@ -148,18 +160,37 @@ export function Players({ gameId }: { gameId: string }) {
                       {player.email}
                     </span>
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => removePlayer(player.id)}
-                    aria-label={`Remove ${player.name}`}
-                    disabled={
-                      removePlayerMutation.isPending &&
-                      removePlayerMutation.variables?.id === player.id
-                    }
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
+                  {game.data?.state === "started" ? (
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          {!player.isDead ? (
+                            <Heart className="h-4 w-4 text-green-500" />
+                          ) : (
+                            <Skull className="h-4 w-4 text-red-500" />
+                          )}
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          {!player.isDead
+                            ? "Player is alive"
+                            : "Player is dead"}
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  ) : (
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => removePlayer(player.id)}
+                      aria-label={`Remove ${player.name}`}
+                      disabled={
+                        removePlayerMutation.isPending &&
+                        removePlayerMutation.variables?.id === player.id
+                      }
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  )}
                 </li>
               ))}
               {addPlayerMutation.isPending && (

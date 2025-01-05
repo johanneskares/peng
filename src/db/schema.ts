@@ -34,6 +34,14 @@ export const participantRelations = relations(participant, ({ one }) => ({
     fields: [participant.gameId],
     references: [game.id],
   }),
+  target: one(participant, {
+    fields: [participant.targetId],
+    references: [participant.id],
+  }),
+  hunter: one(participant, {
+    fields: [participant.id],
+    references: [participant.targetId],
+  }),
 }));
 
 export const gameRelations = relations(game, ({ many }) => ({

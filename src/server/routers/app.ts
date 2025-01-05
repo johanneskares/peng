@@ -1,14 +1,15 @@
 import { and, eq } from "drizzle-orm";
 import { z } from "zod";
 import { game, participant } from "../../db/schema";
-import { drizzle } from "../utils/drizzle";
+import { drizzle, drizzleInteractive } from "../utils/drizzle";
 import { procedure, router } from "../utils/trpc";
+import { sendTargetNotification } from "./send-target-notification";
 
 export const appRouter = router({
   createGame: procedure
     .input(
       z.object({
-        name: z.string(),
+        name: z.string().min(3, "Game name must be at least 3 characters"),
       }),
     )
     .mutation(async (opts) => {
@@ -100,7 +101,164 @@ export const appRouter = router({
 
     return result;
   }),
+
+  startGame: procedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async (opts) => {
+      await drizzleInteractive.transaction(async (tx) => {
+        const gameInstance = await tx.query.game.findFirst({
+          where: eq(game.id, opts.input.id),
+          with: {
+            participants: true,
+          },
+        });
+
+        if (!gameInstance) {
+          throw new Error("Game not found");
+        }
+
+        if (gameInstance.state === "started") {
+          throw new Error("Game is already started");
+        }
+
+        if (gameInstance.participants.length < 3) {
+          throw new Error("Game needs at least 3 players to start");
+        }
+
+        await tx
+          .update(game)
+          .set({ state: "started" })
+          .where(eq(game.id, opts.input.id));
+
+        const participants = [...gameInstance.participants].sort(
+          () => Math.random() - 0.5,
+        );
+
+        for (let i = 0; i < participants.length; i++) {
+          const currentParticipant = participants[i];
+          const targetParticipant = participants[(i + 1) % participants.length];
+
+          await tx
+            .update(participant)
+            .set({ targetId: targetParticipant.id })
+            .where(eq(participant.id, currentParticipant.id));
+        }
+
+        const updatedGame = await tx.query.game.findFirst({
+          where: eq(game.id, opts.input.id),
+          with: {
+            participants: {
+              with: {
+                target: true,
+              },
+            },
+          },
+        });
+
+        if (!updatedGame) {
+          throw new Error("Game not found");
+        }
+
+        for (const participant of updatedGame.participants) {
+          await sendTargetNotification(participant);
+        }
+      });
+    }),
+
+  getPlayerInfo: procedure
+    .input(z.object({ id: z.string() }))
+    .query(async (opts) => {
+      return getPlayerInfo(opts.input.id);
+    }),
+
+  eliminateTarget: procedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async (opts) => {
+      const playerInfo = await getPlayerInfo(opts.input.id);
+
+      if (!playerInfo) {
+        throw new Error("Player not found");
+      }
+
+      await drizzle
+        .update(participant)
+        .set({ isDead: true })
+        .where(eq(participant.id, playerInfo.target.id));
+    }),
 });
 
 // export type definition of API
 export type AppRouter = typeof appRouter;
+
+async function getPlayerInfo(playerId: string) {
+  const playerInstance = await drizzle.query.participant.findFirst({
+    where: eq(participant.id, playerId),
+    with: {
+      game: {
+        with: {
+          participants: true,
+        },
+      },
+    },
+  });
+
+  if (!playerInstance) {
+    throw new Error("Player not found");
+  }
+
+  const gameInstance = playerInstance.game;
+
+  // Find the next alive target recursively
+  let currentTargetId = playerInstance.targetId;
+  const visited = new Set<string>();
+
+  while (currentTargetId && !visited.has(currentTargetId)) {
+    visited.add(currentTargetId);
+    const nextTarget = gameInstance.participants.find(
+      (p) => p.id === currentTargetId,
+    );
+
+    if (!nextTarget) {
+      throw new Error("Target not found");
+    }
+
+    // we found an undead target
+    if (!nextTarget.isDead) {
+      break;
+    }
+
+    currentTargetId = nextTarget.id;
+
+    // If we've looped back to ourselves, stop
+    if (currentTargetId === playerInstance.id) {
+      break;
+    }
+  }
+
+  const target = gameInstance.participants.find(
+    (p) => p.id === currentTargetId,
+  );
+
+  if (!target) {
+    throw new Error("Target not found");
+  }
+
+  return {
+    game: gameInstance,
+    player: {
+      name: playerInstance.name,
+    },
+    target: {
+      id: target.id,
+      name: target.name,
+    },
+    participants: {
+      alive: gameInstance.participants
+        .filter((p) => !p.isDead)
+        .map((p) => ({ id: p.id, name: p.name })),
+      eliminated: gameInstance.participants
+        .filter((p) => p.isDead)
+        .map((p) => ({ id: p.id, name: p.name })),
+    },
+  };
+}
