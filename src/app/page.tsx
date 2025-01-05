@@ -4,6 +4,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Link from "next/link";
 import Peng from "./peng";
 
 export default function Home() {
@@ -12,7 +13,12 @@ export default function Home() {
       <CardHeader>
         <CardTitle className="text-4xl font-bold text-center">Peng!</CardTitle>
         <CardDescription className="text-center mt-2">
-          Start a new Peng! game with your friends
+          An exciting real-world assassination game! New players should check
+          out the{" "}
+          <Link href="/rules" className="underline hover:text-primary">
+            rules
+          </Link>{" "}
+          before getting started.
         </CardDescription>
       </CardHeader>
       <Peng />
