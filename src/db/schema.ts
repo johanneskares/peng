@@ -35,6 +35,6 @@ export const participantRelations = relations(participant, ({ one }) => ({
   }),
 }));
 
-export const gameRelations = relations(game, ({ many, one }) => ({
+export const gameRelations = relations(game, ({ many }) => ({
   participants: many(participant),
 }));
