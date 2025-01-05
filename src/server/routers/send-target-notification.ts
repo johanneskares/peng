@@ -9,12 +9,13 @@ export async function sendTargetNotification(
       name: string;
     } | null;
   }>,
+  gameName?: string,
 ) {
   await resened.batch.send(
     participants.map((participant) => ({
       from: "Lord of the Peng <office@penggame.com>",
       to: participant.email,
-      subject: "You have a new target",
+      subject: `You have a new target in ${gameName ?? "Peng!"}`,
       text: `
 Hi ${participant.name},
 

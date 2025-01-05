@@ -23,7 +23,7 @@ export async function sendKillNotification(killedName: string, gameId: string) {
     {
       from: "Lord of the Peng <office@penggame.com>",
       to: emails,
-      subject: "Someone was killed",
+      subject: `[${gameInstance.name}] Someone was killed`,
       text: `
 Dear Pengs,
 

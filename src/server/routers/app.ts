@@ -160,7 +160,10 @@ export const appRouter = router({
           throw new Error("Game not found");
         }
 
-        await sendTargetNotification(updatedGame.participants);
+        await sendTargetNotification(
+          updatedGame.participants,
+          updatedGame.name,
+        );
       });
     }),
 
@@ -175,6 +178,10 @@ export const appRouter = router({
     .mutation(async (opts) => {
       const playerInfo = await getPlayerInfo(opts.input.id);
 
+      if (playerInfo.player.isDead) {
+        throw new Error("Player is already dead");
+      }
+
       if (!playerInfo) {
         throw new Error("Player not found");
       }
@@ -186,12 +193,15 @@ export const appRouter = router({
 
       const newPlayerInfo = await getPlayerInfo(opts.input.id);
 
-      await sendTargetNotification([
-        {
-          ...newPlayerInfo.player,
-          target: newPlayerInfo.target,
-        },
-      ]);
+      await sendTargetNotification(
+        [
+          {
+            ...newPlayerInfo.player,
+            target: newPlayerInfo.target,
+          },
+        ],
+        newPlayerInfo.game.name,
+      );
 
       // wait 1 second
       await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -262,6 +272,7 @@ async function getPlayerInfo(playerId: string) {
       id: playerInstance.id,
       name: playerInstance.name,
       email: playerInstance.email,
+      isDead: playerInstance.isDead,
     },
     target: {
       id: target.id,
