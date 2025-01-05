@@ -1,12 +1,32 @@
 "use client";
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "@/components/ui/sonner";
+import {
+  MutationCache,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
-import React, { useState } from "react";
+import type React from "react";
+import { useState } from "react";
+import { toast } from "sonner";
 import { trpc } from "../utils/trpc";
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        mutationCache: new MutationCache({
+          onError: (error: unknown) => {
+            if (error instanceof Error) {
+              toast.error("Error", { description: error.message });
+            } else {
+              toast.error("Error", { description: "Unknown error" });
+            }
+          },
+        }),
+      }),
+  );
   const [trpcClient] = useState(() =>
     trpc.createClient({
       links: [
@@ -19,7 +39,10 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        {children}
+        <Toaster />
+      </QueryClientProvider>
     </trpc.Provider>
   );
 }
