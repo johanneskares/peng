@@ -18,7 +18,7 @@ export default function Home() {
           <Link href="/rules" className="underline hover:text-primary">
             rules
           </Link>{" "}
-          before getting started.
+          before getting started. 🔫
         </CardDescription>
       </CardHeader>
       <Peng />
