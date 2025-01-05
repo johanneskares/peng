@@ -9,7 +9,7 @@ export function Navbar() {
           <div className="flex items-center">
             <Link href="/" className="flex items-center">
               <Pointer className="size-5 text-primary mr-2 rotate-90" />
-              <span className="font-bold text-xl">Peng</span>
+              <span className="font-bold text-xl">Peng!</span>
             </Link>
           </div>
           <div className="flex items-center">
