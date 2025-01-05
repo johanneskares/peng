@@ -196,10 +196,7 @@ export const appRouter = router({
       // wait 1 second
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      await sendKillNotification(
-        newPlayerInfo.target.name,
-        newPlayerInfo.game.id,
-      );
+      await sendKillNotification(playerInfo.target.name, playerInfo.game.id);
     }),
 });
 
