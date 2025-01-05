@@ -160,9 +160,7 @@ export const appRouter = router({
           throw new Error("Game not found");
         }
 
-        for (const participant of updatedGame.participants) {
-          await sendTargetNotification([participant]);
-        }
+        await sendTargetNotification(updatedGame.participants);
       });
     }),
 
