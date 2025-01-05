@@ -26,40 +26,40 @@ export default function Rules() {
             target.
           </li>
           <li>
-            Your goal is to "peng" (tag) your target without getting "penged"
+            Your goal is to &quot;peng&quot; (tag) your target without getting &quot;penged&quot;
             yourself.
           </li>
           <li>
-            To "peng" someone, you need to:
+            To &quot;peng&quot; someone, you need to:
             <ul>
               <li>Be within 5 feet of your target.</li>
               <li>
-                Point your phone at them and press the "Peng" button in the app.
+                Point your phone at them and press the &quot;Peng&quot; button in the app.
               </li>
             </ul>
           </li>
           <li>
-            If you successfully "peng" your target, you inherit their target.
+            If you successfully &quot;peng&quot; your target, you inherit their target.
           </li>
-          <li>If you get "penged", you're out of the round.</li>
+          <li>If you get &quot;penged&quot;, you&apos;re out of the round.</li>
           <li>The last player standing wins the round.</li>
         </ol>
 
         <h2>Special Rules</h2>
         <ul>
           <li>
-            Safe Zones: Designated areas where players cannot be "penged". Use
+            Safe Zones: Designated areas where players cannot be &quot;penged&quot;. Use
             these strategically!
           </li>
           <li>
             Power-ups: Occasionally, power-ups will appear in the app. These can
             give you advantages like temporary invincibility or the ability to
-            see other players' locations.
+            see other players&apos; locations.
           </li>
           <li>
             Time Limit: Each round has a 15-minute time limit. If more than one
             player is still in the game when time runs out, the player who has
-            "penged" the most targets wins.
+            &quot;penged&quot; the most targets wins.
           </li>
         </ul>
 
@@ -73,7 +73,7 @@ export default function Rules() {
         <ul>
           <li>
             Always prioritize safety. No running or dangerous behavior to escape
-            being "penged".
+            being &quot;penged&quot;.
           </li>
           <li>Respect other players and their personal space.</li>
           <li>Most importantly, have fun!</li>
