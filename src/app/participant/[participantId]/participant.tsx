@@ -71,6 +71,7 @@ export function Participant({ participantId }: { participantId: string }) {
   }
 
   const isWinner = data.target.id === participantId;
+  const isEliminated = data.player.isDead;
 
   return (
     <Card>
@@ -85,6 +86,14 @@ export function Participant({ participantId }: { participantId: string }) {
             </h2>
             <p className="text-xl">You are the last player standing!</p>
             <p className="mt-2">You have won the game!</p>
+          </div>
+        ) : isEliminated ? (
+          <div className="text-center py-8">
+            <h2 className="text-2xl font-bold text-red-600 mb-4">
+              💀 Game Over 💀
+            </h2>
+            <p className="text-xl">You have been eliminated!</p>
+            <p className="mt-2">Better luck next time!</p>
           </div>
         ) : (
           <>
