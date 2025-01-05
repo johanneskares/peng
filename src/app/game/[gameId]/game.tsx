@@ -6,17 +6,49 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { CopyToClipboard } from "@/components/ui/copy-to-clipboard";
+import { Skeleton } from "@/components/ui/skeleton";
 import { trpc } from "@/utils/trpc";
 
 export function Game({ gameId }: { gameId: string }) {
   const game = trpc.getGame.useQuery({ id: gameId });
 
-  if (game.isLoading) {
-    return <div>Loading...</div>;
+  if (game.isPending) {
+    return (
+      <>
+        <CardHeader>
+          <Skeleton className="h-12 w-3/4 mx-auto" />
+          <Skeleton className="h-16 w-full mt-2" />
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            <Skeleton className="h-10 w-full" />
+            <div className="my-6">
+              <Skeleton className="h-6 w-32 mb-2" />
+              <div className="space-y-2">
+                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-10 w-full" />
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </>
+    );
   }
 
   if (game.error) {
-    return <div>Error: {game.error.message}</div>;
+    return (
+      <>
+        <CardHeader>
+          <CardTitle className="text-4xl font-bold text-center text-destructive">
+            Error
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-center text-destructive">{game.error.message}</p>
+        </CardContent>
+      </>
+    );
   }
 
   return (

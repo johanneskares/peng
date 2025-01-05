@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { foreignKey, pgTable, text, uuid } from "drizzle-orm/pg-core";
+import { boolean, foreignKey, pgTable, text, uuid } from "drizzle-orm/pg-core";
 
 export const game = pgTable("game", {
   id: uuid().defaultRandom().primaryKey().unique(),
@@ -19,6 +19,7 @@ export const participant = pgTable(
     name: text().notNull(),
     email: text().notNull(),
     targetId: uuid(),
+    isDead: boolean().notNull().default(false),
   },
   (table) => [
     foreignKey({
