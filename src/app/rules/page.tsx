@@ -1,6 +1,6 @@
 export default function Rules() {
   return (
-    <main className="flex-grow container mx-auto px-4 py-8">
+    <main className="flex-grow container mx-auto px-4">
       <article className="prose mx-auto">
         <h1>Peng Game Rules</h1>
 
