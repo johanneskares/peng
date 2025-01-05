@@ -29,7 +29,6 @@ Dear Pengs,
 
 Someone has been eliminated: ${killedName}
 
-
 Lord of the Peng
 `,
     },
