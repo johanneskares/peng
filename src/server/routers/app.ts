@@ -3,6 +3,7 @@ import { z } from "zod";
 import { game, participant } from "../../db/schema";
 import { drizzle, drizzleInteractive } from "../utils/drizzle";
 import { procedure, router } from "../utils/trpc";
+import { sendKillNotification } from "./send-kill-notification";
 import { sendTargetNotification } from "./send-target-notification";
 
 export const appRouter = router({
@@ -160,7 +161,7 @@ export const appRouter = router({
         }
 
         for (const participant of updatedGame.participants) {
-          await sendTargetNotification(participant);
+          await sendTargetNotification([participant]);
         }
       });
     }),
@@ -184,6 +185,20 @@ export const appRouter = router({
         .update(participant)
         .set({ isDead: true })
         .where(eq(participant.id, playerInfo.target.id));
+
+      const newPlayerInfo = await getPlayerInfo(opts.input.id);
+
+      await sendTargetNotification([
+        {
+          ...newPlayerInfo.player,
+          target: newPlayerInfo.target,
+        },
+      ]);
+
+      await sendKillNotification(
+        newPlayerInfo.target.name,
+        newPlayerInfo.game.id,
+      );
     }),
 });
 
@@ -227,7 +242,7 @@ async function getPlayerInfo(playerId: string) {
       break;
     }
 
-    currentTargetId = nextTarget.id;
+    currentTargetId = nextTarget.targetId;
 
     // If we've looped back to ourselves, stop
     if (currentTargetId === playerInstance.id) {
@@ -246,7 +261,9 @@ async function getPlayerInfo(playerId: string) {
   return {
     game: gameInstance,
     player: {
+      id: playerInstance.id,
       name: playerInstance.name,
+      email: playerInstance.email,
     },
     target: {
       id: target.id,
