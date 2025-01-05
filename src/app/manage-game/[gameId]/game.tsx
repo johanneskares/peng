@@ -71,7 +71,7 @@ export function Game({ gameId }: { gameId: string }) {
       </CardHeader>
       <CardContent>
         <CopyToClipboard
-          text={`${window.location.origin}/players/${game.data?.id}`}
+          text={`${window.location.origin}/game/${game.data?.id}`}
         />
         <p className="text-center mt-4 text-sm text-muted-foreground">
           Current participants: {participantCount}
