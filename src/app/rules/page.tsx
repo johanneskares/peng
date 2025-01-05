@@ -26,20 +26,22 @@ export default function Rules() {
             target.
           </li>
           <li>
-            Your goal is to &quot;peng&quot; (tag) your target without getting &quot;penged&quot;
-            yourself.
+            Your goal is to &quot;peng&quot; (tag) your target without getting
+            &quot;penged&quot; yourself.
           </li>
           <li>
             To &quot;peng&quot; someone, you need to:
             <ul>
               <li>Be within 5 feet of your target.</li>
               <li>
-                Point your phone at them and press the &quot;Peng&quot; button in the app.
+                Point your phone at them and press the &quot;Peng&quot; button
+                in the app.
               </li>
             </ul>
           </li>
           <li>
-            If you successfully &quot;peng&quot; your target, you inherit their target.
+            If you successfully &quot;peng&quot; your target, you inherit their
+            target.
           </li>
           <li>If you get &quot;penged&quot;, you&apos;re out of the round.</li>
           <li>The last player standing wins the round.</li>
@@ -48,8 +50,8 @@ export default function Rules() {
         <h2>Special Rules</h2>
         <ul>
           <li>
-            Safe Zones: Designated areas where players cannot be &quot;penged&quot;. Use
-            these strategically!
+            Safe Zones: Designated areas where players cannot be
+            &quot;penged&quot;. Use these strategically!
           </li>
           <li>
             Power-ups: Occasionally, power-ups will appear in the app. These can
