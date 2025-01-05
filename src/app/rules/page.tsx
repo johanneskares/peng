@@ -8,16 +8,16 @@ export default function Rules() {
           Welcome to Peng! The ultimate game of paranoia, betrayal, and the
           occasional awkward bathroom encounter. Get ready to sharpen your sins,
           dodge imaginary bullets, and keep one eye over your shoulder at all
-          times. Here's everything you need to survive and maybe win this battle
-          royal.
+          times. Here&apos;s everything you need to survive and maybe win this
+          battle royal.
         </p>
 
         <h2>Setup</h2>
         <ol>
           <li>Gather a group of 4 to 20+ players.</li>
           <li>
-            Everyone needs a smartphone to access penggame.com, where you'll
-            track the massacre.
+            Everyone needs a smartphone to access penggame.com, where
+            you&apos;ll track the massacre.
           </li>
           <li>
             Choose a Game Master, whose sole job is to name and start the game
@@ -36,8 +36,8 @@ export default function Rules() {
           </li>
           <li>
             Optional: grab one piece of paper and a pen to write down your
-            initial target you'll receive via email (you can also just use the
-            email)
+            initial target you&apos;ll receive via email (you can also just use
+            the email)
           </li>
         </ol>
 
@@ -53,8 +53,8 @@ export default function Rules() {
 
         <h3>The Objective</h3>
         <p>
-          "Peng" (eliminate) your target before someone else "pengs" you. Think
-          of it as survival of the sneakiest.
+          &quot;Peng&quot; (eliminate) your target before someone else
+          &quot;pengs&quot; you. Think of it as survival of the sneakiest.
         </p>
 
         <h3>The Art of the Peng</h3>
@@ -71,15 +71,16 @@ export default function Rules() {
             closed.)
           </li>
           <li>
-            If someone spies the action through a closed window, that's fine—as
-            long as they don't intervene or open a door or window.
+            If someone spies the action through a closed window, that&apos;s
+            fine—as long as they don&apos;t intervene or open a door or window.
           </li>
         </ul>
 
         <h4>Make the Kill:</h4>
         <p>
           Point your index & middle fingers like a pistol at your target and
-          confidently say, "PENG!" Bonus points for style & creativity.
+          confidently say, &quot;PENG!&quot; Bonus points for style &
+          creativity.
         </p>
 
         <h4>If You Succeed:</h4>
@@ -87,12 +88,12 @@ export default function Rules() {
           <li>Your target is eliminated. (Cue dramatic exit music.)</li>
           <li>
             They must hand over their target to you (you will also get it via
-            email as soon as you log the kill). You're now carrying on their
-            legacy.
+            email as soon as you log the kill). You&apos;re now carrying on
+            their legacy.
           </li>
           <li>
             Log your kill via the email you received from penggame.com so
-            everyone knows who's still standing.
+            everyone knows who&apos;s still standing.
           </li>
           <li>
             Want to brag? Take a photo of the glorious moment and share it with
@@ -100,27 +101,27 @@ export default function Rules() {
           </li>
         </ul>
 
-        <h4>If You're Penged:</h4>
+        <h4>If You&apos;re Penged:</h4>
         <p>
-          You're eliminated and out. Join the sidelines, cheer on your
+          You&apos;re eliminated and out. Join the sidelines, cheer on your
           executioner, and plan your revenge for the next round.
         </p>
 
         <h2>Special Rules</h2>
         <ul>
           <li>
-            Safe Zones: Agree on areas where "penging" is off-limits (e.g.,
-            workplaces, bedrooms, or nursing homes).
+            Safe Zones: Agree on areas where &quot;penging&quot; is off-limits
+            (e.g., workplaces, bedrooms, or nursing homes).
           </li>
           <li>
-            Safe Times: Set time windows when no "penging" can occur (e.g.,
-            10:00 PM to 8:00 AM). Even assassins need to sleep.
+            Safe Times: Set time windows when no &quot;penging&quot; can occur
+            (e.g., 10:00 PM to 8:00 AM). Even assassins need to sleep.
           </li>
         </ul>
 
         <h2>Time Limit</h2>
         <p>
-          There isn't one. A round can last days, weeks, or even months,
+          There isn&apos;t one. A round can last days, weeks, or even months,
           depending on how sneaky (or lazy) everyone is. The Game Master can
           declare a winner if it drags on too long or you want to start another
           round with a similar group.
@@ -136,7 +137,7 @@ export default function Rules() {
             Lord of the Peng: The ultimate survivor and glorious assassin.
           </li>
           <li>
-            First Blood: For the first successful "peng." Ruthless and
+            First Blood: For the first successful &quot;peng.&quot; Ruthless and
             efficient.
           </li>
           <li>
@@ -157,30 +158,32 @@ export default function Rules() {
         <ul>
           <li>
             Safety First: No running, jumping out of windows, or doing anything
-            stupid to achieve or avoid a "peng." Keep it fun, not dangerous.
+            stupid to achieve or avoid a &quot;peng.&quot; Keep it fun, not
+            dangerous.
           </li>
           <li>
-            Respect Boundaries: Don't invade personal space, cross lines, or
-            ruin friendships. This is a game and ensure all players feel
+            Respect Boundaries: Don&apos;t invade personal space, cross lines,
+            or ruin friendships. This is a game and ensure all players feel
             comfortable participating.
           </li>
           <li>
-            No Real Weapons: Terms like "gun," "peng," "kill," and "weapon" are
-            used only in the playful context of this game - so imaginary guns
-            only. If you think a real weapon is a good idea, you're playing the
-            wrong game (or need new hobbies). Be peaceful and kind—this is a
-            game of fun, not force.
+            No Real Weapons: Terms like &quot;gun,&quot; &quot;peng,&quot;
+            &quot;kill,&quot; and &quot;weapon&quot; are used only in the
+            playful context of this game - so imaginary guns only. If you think
+            a real weapon is a good idea, you&apos;re playing the wrong game (or
+            need new hobbies). Be peaceful and kind—this is a game of fun, not
+            force.
           </li>
           <li>
             Keep It Light: Ensure no one gets hurt physically or emotionally,
             and no one feels intimidated or uncomfortable. The goal is laughter,
             not tears. If someone feels uncomfortable, respect their limits and
-            adjust. Never use violence to achieve a "peng."
+            adjust. Never use violence to achieve a &quot;peng.&quot;
           </li>
           <li>
             Have Fun: This game is about shared chaos, funny moments, and
-            lasting memories. Don't take it too seriously—it's all pretend,
-            after all.
+            lasting memories. Don&apos;t take it too seriously—it&apos;s all
+            pretend, after all.
           </li>
         </ul>
 
