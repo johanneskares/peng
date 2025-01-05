@@ -69,7 +69,7 @@ export function Game({ gameId }: { gameId: string }) {
     return (
       <>
         <CardHeader>
-          <CardTitle className="text-4xl font-bold text-center text-green-600">
+          <CardTitle className="text-4xl font-bold text-center">
             Game Started!
           </CardTitle>
         </CardHeader>
@@ -109,20 +109,13 @@ export function Game({ gameId }: { gameId: string }) {
           variant="outline"
           asChild
           className="w-full"
-          disabled={
-            startGameMutation.isPending || game.data?.state === "started"
-          }
+          disabled={startGameMutation.isPending}
         >
           <Link href={`/game/${game.data?.id}`}>Manage Participants</Link>
         </Button>
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button
-              className="w-full"
-              disabled={
-                startGameMutation.isPending || game.data?.state === "started"
-              }
-            >
+            <Button className="w-full" disabled={startGameMutation.isPending}>
               Start Game
             </Button>
           </AlertDialogTrigger>
