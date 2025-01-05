@@ -57,12 +57,12 @@ export function Game({ gameId }: { gameId: string }) {
     );
   }
 
+  const participantCount = game.data?.participants.length || 0;
+
   return (
     <>
       <CardHeader>
-        <CardTitle className="text-4xl font-bold text-center">
-          {game.data?.name}
-        </CardTitle>
+        <CardTitle className="text-center">{game.data?.name}</CardTitle>
         <CardDescription className="text-center mt-2">
           Share this link with your friends and let them add themselves to the
           game. Come back to this page to start the game.
@@ -72,6 +72,9 @@ export function Game({ gameId }: { gameId: string }) {
         <CopyToClipboard
           text={`${window.location.origin}/players/${game.data?.id}`}
         />
+        <p className="text-center mt-4 text-sm text-muted-foreground">
+          Current participants: {participantCount}
+        </p>
       </CardContent>
       <CardFooter className="flex flex-col gap-4">
         <Button variant="outline" asChild className="w-full">
@@ -85,9 +88,10 @@ export function Game({ gameId }: { gameId: string }) {
             <AlertDialogHeader>
               <AlertDialogTitle>Are you sure?</AlertDialogTitle>
               <AlertDialogDescription>
-                This will start the game for all participants. Make sure all
-                participants are added! Be careful, this action is irreversible
-                and will send an email to every particpant.
+                This will start the game for all {participantCount}{" "}
+                participants. Make sure all participants are added! Be careful,
+                This action is irreversible and will send an email to every
+                particpant.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>

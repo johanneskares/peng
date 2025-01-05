@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { trpc } from "@/utils/trpc";
 import { Trash2 } from "lucide-react";
@@ -47,18 +48,52 @@ export function Players({ gameId }: { gameId: string }) {
     removePlayerMutation.mutate({ id, gameId });
   };
 
+  if (game.isPending) {
+    return (
+      <>
+        <CardHeader>
+          <div className="flex justify-between items-center">
+            <Skeleton className="h-8 w-48" />
+            <Skeleton className="h-9 w-24" />
+          </div>
+          <Skeleton className="h-12 w-full mt-2" />
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Skeleton className="h-5 w-16" />
+              <Skeleton className="h-10 w-full" />
+            </div>
+            <div className="space-y-2">
+              <Skeleton className="h-5 w-16" />
+              <Skeleton className="h-10 w-full" />
+            </div>
+            <Skeleton className="h-10 w-full" />
+          </div>
+          <div className="mt-6">
+            <Skeleton className="h-6 w-32 mb-2" />
+            <div className="space-y-2">
+              <Skeleton className="h-12 w-full" />
+              <Skeleton className="h-12 w-full" />
+              <Skeleton className="h-12 w-full" />
+            </div>
+          </div>
+        </CardContent>
+      </>
+    );
+  }
+
   return (
     <>
       <CardHeader>
         <div className="flex justify-between items-center">
-          <CardTitle>Player List for &quot;{game.data?.name}&quot;</CardTitle>
+          <CardTitle>{game.data?.name}</CardTitle>
           <Button variant="secondary" size="sm" asChild>
             <Link href={`/game/${gameId}`}>Manage Game</Link>
           </Button>
         </div>
         <CardDescription>
-          Add yourself to the game or remove individual players. The game master
-          will start the game.
+          Add yourself to the game or remove individual players.
         </CardDescription>
       </CardHeader>
       <CardContent>
