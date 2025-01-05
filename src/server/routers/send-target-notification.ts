@@ -1,6 +1,7 @@
 import { resened } from "../utils/resend";
 
 export async function sendTargetNotification(participant: {
+  id: string;
   email: string;
   name: string;
   target: {
