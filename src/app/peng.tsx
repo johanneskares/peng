@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
 import { trpc } from "@/utils/trpc";
 import { Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
@@ -56,36 +57,47 @@ export default function Peng() {
     <>
       <CardContent className="space-y-4">
         {participants.map((participant, index) => (
-          <div key={participant.id} className="flex items-center gap-3">
-            <div className="font-bold">{index + 1}.</div>
-            <div className="flex-grow">
-              <Input
-                id={`name-${participant.id}`}
-                value={participant.name}
-                onChange={(e) =>
-                  updateParticipant(participant.id, "name", e.target.value)
-                }
-                placeholder="Enter name"
-              />
+          <div key={participant.id}>
+            <div className="flex items-center gap-3">
+              <div className="font-bold">{index + 1}.</div>
+              <div className="flex-grow">
+                <div className="flex flex-col sm:flex-row w-full gap-3">
+                  <div className="w-full sm:flex-grow">
+                    <Input
+                      id={`name-${participant.id}`}
+                      value={participant.name}
+                      onChange={(e) =>
+                        updateParticipant(
+                          participant.id,
+                          "name",
+                          e.target.value,
+                        )
+                      }
+                      placeholder="Enter name"
+                    />
+                  </div>
+                  <div className="w-full sm:flex-grow">
+                    <PhoneInput
+                      value={participant.phoneNumber}
+                      onChange={(value) =>
+                        updateParticipant(participant.id, "phoneNumber", value)
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => removeParticipant(participant.id)}
+                  disabled={participants.length === 1}
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
-            <div className="flex-grow">
-              <PhoneInput
-                value={participant.phoneNumber}
-                onChange={(value) =>
-                  updateParticipant(participant.id, "phoneNumber", value)
-                }
-              />
-            </div>
-            <div className="flex items-center">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => removeParticipant(participant.id)}
-                disabled={participants.length === 1}
-              >
-                <Trash2 className="h-4 w-4" />
-              </Button>
-            </div>
+            {index < participants.length - 1 && <Separator className="my-4" />}
           </div>
         ))}
         <Button
@@ -114,7 +126,6 @@ export default function Peng() {
         >
           Start Game
         </Button>
-        {<div>{result.data?.greeting}</div>}
       </CardFooter>
     </>
   );
