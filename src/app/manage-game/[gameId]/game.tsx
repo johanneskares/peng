@@ -25,7 +25,12 @@ import Link from "next/link";
 
 export function Game({ gameId }: { gameId: string }) {
   const game = trpc.getGame.useQuery({ id: gameId });
-  const startGameMutation = trpc.startGame.useMutation();
+  const utils = trpc.useUtils();
+  const startGameMutation = trpc.startGame.useMutation({
+    onSuccess: () => {
+      utils.getGame.invalidate();
+    },
+  });
 
   if (game.isPending) {
     return (
@@ -59,6 +64,28 @@ export function Game({ gameId }: { gameId: string }) {
   }
 
   const participantCount = game.data?.participants.length || 0;
+
+  if (game.data?.state === "started") {
+    return (
+      <>
+        <CardHeader>
+          <CardTitle className="text-4xl font-bold text-center text-green-600">
+            Game Started!
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-center">
+            The game has been started successfully. All {participantCount}{" "}
+            participants have been notified.
+          </p>
+          <p className="text-center mt-4 text-sm text-muted-foreground">
+            If you signed up as a player, check your inbox for your target
+            assignment!
+          </p>
+        </CardContent>
+      </>
+    );
+  }
 
   return (
     <>
