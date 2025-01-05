@@ -9,7 +9,7 @@ export default async function Home({
   const { gameId } = await params;
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
+    <Card className="w-full max-w-md mx-auto">
       <Game gameId={gameId} />
     </Card>
   );

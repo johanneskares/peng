@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { trpc } from "@/utils/trpc";
 import { Trash2 } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 
 export function Players({ gameId }: { gameId: string }) {
@@ -49,7 +50,12 @@ export function Players({ gameId }: { gameId: string }) {
   return (
     <>
       <CardHeader>
-        <CardTitle>Player List for &quot;{game.data?.name}&quot;</CardTitle>
+        <div className="flex justify-between items-center">
+          <CardTitle>Player List for &quot;{game.data?.name}&quot;</CardTitle>
+          <Button variant="secondary" size="sm" asChild>
+            <Link href={`/game/${gameId}`}>Manage Game</Link>
+          </Button>
+        </div>
         <CardDescription>
           Add yourself to the game or remove individual players. The game master
           will start the game.
@@ -88,7 +94,8 @@ export function Players({ gameId }: { gameId: string }) {
         </form>
         <div className="mt-6">
           <h3 className="font-semibold mb-2">Current Players:</h3>
-          {game.data?.participants.length !== 0 ? (
+          {game.data?.participants.length !== 0 ||
+          addPlayerMutation.isPending ? (
             <ul className="space-y-2">
               {game.data?.participants.map((player) => (
                 <li

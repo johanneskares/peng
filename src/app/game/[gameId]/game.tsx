@@ -1,13 +1,27 @@
 "use client";
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import {
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { CopyToClipboard } from "@/components/ui/copy-to-clipboard";
 import { Skeleton } from "@/components/ui/skeleton";
 import { trpc } from "@/utils/trpc";
+import Link from "next/link";
 
 export function Game({ gameId }: { gameId: string }) {
   const game = trpc.getGame.useQuery({ id: gameId });
@@ -22,14 +36,6 @@ export function Game({ gameId }: { gameId: string }) {
         <CardContent>
           <div className="space-y-4">
             <Skeleton className="h-10 w-full" />
-            <div className="my-6">
-              <Skeleton className="h-6 w-32 mb-2" />
-              <div className="space-y-2">
-                <Skeleton className="h-10 w-full" />
-                <Skeleton className="h-10 w-full" />
-                <Skeleton className="h-10 w-full" />
-              </div>
-            </div>
           </div>
         </CardContent>
       </>
@@ -63,30 +69,34 @@ export function Game({ gameId }: { gameId: string }) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="space-y-4">
-          <CopyToClipboard
-            text={`${window.location.origin}/players/${game.data?.id}`}
-          />
-
-          <div className="my-6">
-            <h3 className="text-lg font-semibold mb-2">Participants:</h3>
-            {game.data?.participants.length === 0 ? (
-              <p className="text-gray-500">No participants yet</p>
-            ) : (
-              <ul className="space-y-2">
-                {game.data?.participants.map((participant) => (
-                  <li
-                    key={participant.id}
-                    className="p-2 bg-secondary rounded-lg"
-                  >
-                    {participant.name}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        </div>
+        <CopyToClipboard
+          text={`${window.location.origin}/players/${game.data?.id}`}
+        />
       </CardContent>
+      <CardFooter className="flex flex-col gap-4">
+        <Button variant="outline" asChild className="w-full">
+          <Link href={`/players/${game.data?.id}`}>Manage Participants</Link>
+        </Button>
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button className="w-full">Start Game</Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This will start the game for all participants. Make sure all
+                participants are added! Be careful, this action is irreversible
+                and will send an email to every particpant.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction>Start Game</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </CardFooter>
     </>
   );
 }
