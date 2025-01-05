@@ -79,7 +79,7 @@ export default function Rules() {
         <h4>Make the Kill:</h4>
         <p>
           Point your index & middle fingers like a pistol at your target and
-          confidently say, &quot;PENG!&quot; Bonus points for style &
+          confidently say, &quot;PENG!&quot;. Bonus points for style &
           creativity.
         </p>
 
@@ -104,7 +104,9 @@ export default function Rules() {
         <h4>If You&apos;re Penged:</h4>
         <p>
           You&apos;re eliminated and out. Join the sidelines, cheer on your
-          executioner, and plan your revenge for the next round.
+          executioner, and plan your revenge for the next round. The game
+          continues until only one player remains—or until everyone gets too
+          paranoid to go to the bathroom or sleep next to their partner.
         </p>
 
         <h2>Special Rules</h2>
