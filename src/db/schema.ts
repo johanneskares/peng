@@ -1,5 +1,12 @@
 import { relations } from "drizzle-orm";
-import { boolean, foreignKey, pgTable, text, uuid } from "drizzle-orm/pg-core";
+import {
+  boolean,
+  foreignKey,
+  pgTable,
+  text,
+  timestamp,
+  uuid,
+} from "drizzle-orm/pg-core";
 
 export const game = pgTable("game", {
   id: uuid().defaultRandom().primaryKey().unique(),
@@ -7,6 +14,7 @@ export const game = pgTable("game", {
   state: text({ enum: ["started", "created"] })
     .notNull()
     .default("created"),
+  createdAt: timestamp().notNull().defaultNow(),
 });
 
 export const participant = pgTable(
@@ -20,6 +28,7 @@ export const participant = pgTable(
     email: text().notNull(),
     targetId: uuid(),
     isDead: boolean().notNull().default(false),
+    createdAt: timestamp().notNull().defaultNow(),
   },
   (table) => [
     foreignKey({
