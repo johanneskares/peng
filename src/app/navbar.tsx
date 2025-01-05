@@ -20,10 +20,10 @@ export function Navbar() {
               Rules
             </Link>
             <Link
-              href="/get-started"
+              href="/"
               className="text-foreground hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
             >
-              Get Started
+              Play Game
             </Link>
           </div>
         </div>

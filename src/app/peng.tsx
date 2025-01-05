@@ -18,7 +18,7 @@ export default function Peng() {
   const [participants, setParticipants] = useState<Participant[]>([
     { id: 1, name: "", phoneNumber: "" },
   ]);
-  const [voucherCode, setVoucherCode] = useState("")
+  const [voucherCode, setVoucherCode] = useState("");
 
   const addParticipant = () => {
     const newId = participants.length + 1;
@@ -92,7 +92,7 @@ export default function Peng() {
         >
           <Plus className="mr-2 h-4 w-4" /> Add Participant
         </Button>
-              <div className="space-y-2">
+        <div className="space-y-2">
           <Label htmlFor="voucher-code">Voucher Code</Label>
           <Input
             id="voucher-code"
@@ -104,7 +104,11 @@ export default function Peng() {
         </div>
       </CardContent>
       <CardFooter>
-        <Button onClick={handleStartGame} className="w-full" disabled={!voucherCode}>
+        <Button
+          onClick={handleStartGame}
+          className="w-full"
+          disabled={!voucherCode}
+        >
           Start Game
         </Button>
       </CardFooter>

@@ -11,10 +11,11 @@ export default function Home() {
     <Card className="w-full max-w-2xl mx-auto">
       <CardHeader>
         <CardTitle className="text-4xl font-bold text-center">
-          Start Peng Game
+          Start Peng
         </CardTitle>
         <CardDescription className="text-center mt-2">
-          Enter the participants&apos; details to start your Peng game adventure!
+          Enter the participants&apos; details to start your Peng game
+          adventure!
         </CardDescription>
       </CardHeader>
       <Peng />
