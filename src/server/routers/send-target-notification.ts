@@ -1,18 +1,21 @@
 import { resened } from "../utils/resend";
 
-export async function sendTargetNotification(participant: {
-  id: string;
-  email: string;
-  name: string;
-  target: {
+export async function sendTargetNotification(
+  participants: Array<{
+    id: string;
+    email: string;
     name: string;
-  } | null;
-}) {
-  await resened.emails.send({
-    from: "office@penggame.com",
-    to: participant.email,
-    subject: "You have a new target",
-    text: `
+    target: {
+      name: string;
+    } | null;
+  }>,
+) {
+  await resened.batch.send(
+    participants.map((participant) => ({
+      from: "Lord of the Peng <office@penggame.com>",
+      to: participant.email,
+      subject: "You have a new target",
+      text: `
 Hi ${participant.name},
 
 You have a new target: ${participant.target?.name ?? "ERROR"}
@@ -23,8 +26,6 @@ Good luck!
 
 Lord of the Peng
 `,
-  });
-
-  // wait 600 ms for rate limit
-  await new Promise((resolve) => setTimeout(resolve, 600));
+    })),
+  );
 }
