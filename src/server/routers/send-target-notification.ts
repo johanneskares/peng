@@ -21,7 +21,9 @@ Hi ${participant.name},
 
 You have a new target: ${participant.target?.name ?? "ERROR"}
 
-If you've eliminated the target, please mark it here: https://penggame.com/participant/${participant.id}
+Your find your personal page here: https://penggame.com/participant/${participant.id}
+
+If you've eliminated the target, please go to your personal page and mark it as eliminated.
 
 Good luck!
 
