@@ -190,7 +190,7 @@ export const appRouter = router({
 
       await drizzle
         .update(participant)
-        .set({ isDead: true })
+        .set({ isDead: true, killedBy: opts.input.id })
         .where(eq(participant.id, playerInfo.target.id));
 
       const newPlayerInfo = await getPlayerInfo(opts.input.id);

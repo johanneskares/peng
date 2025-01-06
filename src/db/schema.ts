@@ -28,11 +28,16 @@ export const participant = pgTable(
     email: text().notNull(),
     targetId: uuid(),
     isDead: boolean().notNull().default(false),
+    killedBy: uuid(),
     createdAt: timestamp().notNull().defaultNow(),
   },
   (table) => [
     foreignKey({
       columns: [table.targetId],
+      foreignColumns: [table.id],
+    }),
+    foreignKey({
+      columns: [table.killedBy],
       foreignColumns: [table.id],
     }),
   ],
