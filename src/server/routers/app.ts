@@ -92,7 +92,9 @@ export const appRouter = router({
     const result = await drizzle.query.game.findFirst({
       where: eq(game.id, opts.input.id),
       with: {
-        participants: true,
+        participants: {
+          orderBy: (participants, { asc }) => [asc(participants.createdAt)],
+        },
       },
     });
 
