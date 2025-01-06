@@ -22,6 +22,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { trpc } from "@/utils/trpc";
+import { Skull } from "lucide-react";
 
 export function Participant({ participantId }: { participantId: string }) {
   const { data, isPending } = trpc.getPlayerInfo.useQuery({
@@ -123,6 +124,7 @@ export function Participant({ participantId }: { participantId: string }) {
                   disabled={eliminatePlayerMutation.isPending}
                 >
                   I have eliminated {data.target.name}
+                  <Skull className="w-4 h-4" />
                 </Button>
               </AlertDialogTrigger>
               <AlertDialogContent>
