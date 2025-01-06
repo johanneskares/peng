@@ -1,5 +1,16 @@
 "use client";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import {
   CardContent,
@@ -154,7 +165,7 @@ export function Players({ gameId }: { gameId: string }) {
                       "opacity-50",
                   )}
                 >
-                  <div>
+                  <div className="ml-2">
                     <span className="font-medium">{player.name}</span>
                     <span className="text-sm text-muted-foreground ml-2">
                       {player.email}
@@ -178,24 +189,44 @@ export function Players({ gameId }: { gameId: string }) {
                       </Tooltip>
                     </TooltipProvider>
                   ) : (
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => removePlayer(player.id)}
-                      aria-label={`Remove ${player.name}`}
-                      disabled={
-                        removePlayerMutation.isPending &&
-                        removePlayerMutation.variables?.id === player.id
-                      }
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          aria-label={`Remove ${player.name}`}
+                          disabled={
+                            removePlayerMutation.isPending &&
+                            removePlayerMutation.variables?.id === player.id
+                          }
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Remove Player</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            Are you sure you want to remove {player.name} from
+                            the game?
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction
+                            onClick={() => removePlayer(player.id)}
+                          >
+                            Remove
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   )}
                 </li>
               ))}
               {addPlayerMutation.isPending && (
                 <li className="flex justify-between items-center bg-secondary p-2 rounded">
-                  <div className="opacity-50">
+                  <div className="opacity-50 ml-2">
                     <span className="font-medium">
                       {addPlayerMutation.variables?.name}
                     </span>
