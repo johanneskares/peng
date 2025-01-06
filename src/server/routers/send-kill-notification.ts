@@ -15,22 +15,18 @@ export async function sendKillNotification(killedName: string, gameId: string) {
     throw new Error("Game not found");
   }
 
-  const emails = gameInstance.participants.map(
-    (participant) => participant.email,
-  );
-
-  await resened.batch.send([
-    {
+  await resened.batch.send(
+    gameInstance.participants.map((participant) => ({
       from: "Lord of the Peng <office@penggame.com>",
-      to: emails,
+      to: participant.email,
       subject: `Someone was killed in ${gameInstance.name}`,
       text: `
-Dear Pengs,
+Dear ${participant.name},
 
 Someone has been eliminated: ${killedName}
 
 Lord of the Peng
 `,
-    },
-  ]);
+    })),
+  );
 }
