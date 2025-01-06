@@ -279,16 +279,17 @@ async function getPlayerInfo(playerId: string) {
     target: {
       id: target.id,
       name: target.name,
+      email: target.email,
     },
     participants: {
       alive: gameInstance.participants
         .filter((p) => !p.isDead)
         .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())
-        .map((p) => ({ id: p.id, name: p.name })),
+        .map((p) => ({ id: p.id, name: p.name, email: p.email })),
       eliminated: gameInstance.participants
         .filter((p) => p.isDead)
         .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())
-        .map((p) => ({ id: p.id, name: p.name })),
+        .map((p) => ({ id: p.id, name: p.name, email: p.email })),
     },
   };
 }

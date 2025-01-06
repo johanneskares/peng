@@ -15,6 +15,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { trpc } from "@/utils/trpc";
 
 export function Participant({ participantId }: { participantId: string }) {
@@ -99,7 +105,14 @@ export function Participant({ participantId }: { participantId: string }) {
           <>
             <div className="mb-4 flex justify-between">
               <h2 className="">Your Target</h2>
-              <p className="font-bold">{data.target.name}</p>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <p className="font-bold">{data.target.name}</p>
+                  </TooltipTrigger>
+                  <TooltipContent>{data.target.email}</TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
 
             <AlertDialog>
@@ -145,8 +158,13 @@ export function Participant({ participantId }: { participantId: string }) {
             </h2>
             <ul className="mt-2 space-y-1">
               {data.participants.alive.map((player) => (
-                <li key={player.id} className="">
-                  {player.name}
+                <li key={player.id}>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger>{player.name}</TooltipTrigger>
+                      <TooltipContent>{player.email}</TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                 </li>
               ))}
             </ul>
@@ -160,7 +178,12 @@ export function Participant({ participantId }: { participantId: string }) {
               <ul className="mt-2 space-y-1">
                 {data.participants.eliminated.map((player) => (
                   <li key={player.id} className="text-muted-foreground">
-                    {player.name}
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger>{player.name}</TooltipTrigger>
+                        <TooltipContent>{player.email}</TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
                   </li>
                 ))}
               </ul>
