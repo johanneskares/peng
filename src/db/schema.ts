@@ -29,6 +29,7 @@ export const participant = pgTable(
     targetId: uuid(),
     isDead: boolean().notNull().default(false),
     killedBy: uuid(),
+    eliminatedAt: timestamp({ withTimezone: true }),
     createdAt: timestamp().notNull().defaultNow(),
   },
   (table) => [
