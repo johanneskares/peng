@@ -131,9 +131,11 @@ export const appRouter = router({
           .set({ state: "started" })
           .where(eq(game.id, opts.input.id));
 
-        const participants = [...gameInstance.participants].sort(
-          () => Math.random() - 0.5,
-        );
+        // Shuffle Participants
+        const participants = gameInstance.participants
+          .map((value) => ({ value, sort: Math.random() }))
+          .sort((a, b) => a.sort - b.sort)
+          .map(({ value }) => value);
 
         for (let i = 0; i < participants.length; i++) {
           const currentParticipant = participants[i];
